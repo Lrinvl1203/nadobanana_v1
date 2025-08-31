@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "created": "2025-08-31",
+  "description": "실행 플래그 시스템 - 롤백 지원",
+  "current_flag": 0,
+  "flags": {
+    "FLAG-20250831-1542-001": {
+      "timestamp": "2025-08-31T15:42:00.000Z",
+      "action": "project_initialization",
+      "description": "프로젝트 규칙 파일 생성 및 Git 저장소 연동",
+      "files_affected": [
+        "PROJECT_RULES.md",
+        ".gitignore"
+      ],
+      "git_commit": "239fe6f",
+      "status": "completed",
+      "rollback_possible": true,
+      "validation_passed": true
+    }
+  },
+  "rollback_points": [
+    {
+      "flag_id": "FLAG-20250831-1542-001",
+      "git_commit": "239fe6f",
+      "description": "Initial stable state",
+      "created": "2025-08-31T15:42:00.000Z"
+    }
+  ]
+}

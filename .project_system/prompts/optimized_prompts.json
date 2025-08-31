@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "created": "2025-08-31",
+  "description": "최적화된 프롬프트 저장소 - SuperClaude COMMANDS.md 기반",
+  "prompts": {
+    "template": {
+      "original": "사용자 원본 프롬프트",
+      "optimized": "SuperClaude 최적화된 프롬프트",
+      "commands_used": ["활용된 명령어 목록"],
+      "personas_activated": ["활성화된 페르소나"],
+      "mcp_servers": ["사용된 MCP 서버"],
+      "flags": ["적용된 플래그"],
+      "timestamp": "YYYY-MM-DDTHH:mm:ss.sssZ",
+      "execution_id": "FLAG-YYYYMMDD-HHmm-###",
+      "result_summary": "실행 결과 요약"
+    }
+  },
+  "stats": {
+    "total_prompts": 0,
+    "optimization_rate": 0,
+    "success_rate": 0,
+    "token_savings": 0
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "updated": "2025-08-31",
+  "description": "MCP 서버 버전 관리 및 설정",
+  "servers": {
+    "context7": {
+      "description": "Documentation & Research",
+      "status": "active",
+      "capabilities": [
+        "resolve-library-id",
+        "get-library-docs"
+      ],
+      "preferred_for": [
+        "library_documentation",
+        "framework_patterns",
+        "best_practices"
+      ]
+    },
+    "sequential-thinking": {
+      "description": "Complex Analysis & Multi-step Reasoning",
+      "status": "active",
+      "capabilities": [
+        "sequentialthinking"
+      ],
+      "preferred_for": [
+        "complex_analysis",
+        "systematic_debugging",
+        "architectural_review"
+      ]
+    },
+    "magic": {
+      "description": "UI Components & Design Systems",
+      "status": "active",
+      "capabilities": [
+        "21st_magic_component_builder",
+        "21st_magic_component_inspiration",
+        "21st_magic_component_refiner",
+        "logo_search"
+      ],
+      "preferred_for": [
+        "ui_components",
+        "design_systems",
+        "frontend_development"
+      ]
+    },
+    "playwright": {
+      "description": "Browser Automation & E2E Testing",
+      "status": "active",
+      "capabilities": [
+        "browser_automation",
+        "e2e_testing",
+        "performance_testing"
+      ],
+      "preferred_for": [
+        "browser_testing",
+        "performance_monitoring",
+        "user_workflow_validation"
+      ]
+    }
+  },
+  "auto_activation": {
+    "enabled": true,
+    "rules": {
+      "context7": [
+        "library imports detected",
+        "framework questions",
+        "documentation requests"
+      ],
+      "sequential": [
+        "complex debugging",
+        "system design",
+        "think flags"
+      ],
+      "magic": [
+        "UI component requests",
+        "design system queries",
+        "frontend persona"
+      ],
+      "playwright": [
+        "testing workflows",
+        "performance monitoring",
+        "QA persona"
+      ]
+    }
+  }
+}

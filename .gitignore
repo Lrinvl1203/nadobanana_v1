@@ -1,0 +1,37 @@
+# 나도바나나 프로젝트 Git 무시 파일
+
+# 로그 파일 (용량 제한)
+.project_system/logs/**/*.log
+.project_system/logs/**/temp_*
+
+# 임시 파일
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE 설정
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# 빌드 결과물
+build/
+dist/
+*.build
+
+# 의존성
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+
+# 환경 변수
+.env
+.env.local
+.env.production
+
+# 시스템 캐시 (일부만 무시)
+.project_system/cache/temp/
+.project_system/cache/*.tmp
