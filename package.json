@@ -1,0 +1,20 @@
+{
+  "name": "nadobanana",
+  "version": "1.0.0",
+  "description": "나도바나나 이미지 생성기 - Single HTML + Netlify Functions",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build needed for static HTML'",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@google/genai": "^1.16.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": ["ai", "image-generation", "gemini", "netlify"],
+  "author": "Nadobanana Team",
+  "license": "MIT"
+}

@@ -1,0 +1,39 @@
+[build]
+  # No build command needed for static HTML
+  publish = "."
+  
+  # Netlify Functions
+  functions = "netlify/functions"
+
+[build.environment]
+  # Node.js version for functions
+  NODE_VERSION = "18"
+
+# Environment variables (set in Netlify dashboard)
+# GEMINI_API_KEY = "your-gemini-api-key-here"
+
+# Redirect rules for SPA behavior (optional)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Allow inline scripts for the single HTML file
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data: blob:; connect-src 'self'"
+
+# Function-specific headers
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "POST, OPTIONS"
