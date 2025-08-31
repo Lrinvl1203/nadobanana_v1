@@ -7,23 +7,24 @@ Gemini AI를 활용한 단일 HTML 파일 + Netlify Functions 구조의 이미�
 ### 1단계: GitHub 저장소에 푸시
 ```bash
 git add .
-git commit -m "feat: Single HTML + Netlify Functions deployment ready"
+git commit -m "feat: User API key input system + Single HTML deployment"
 git push
 ```
 
 ### 2단계: Netlify 배포
 1. [Netlify](https://netlify.com)에 로그인
-2. "New site from Git" 클릭
-3. GitHub 저장소 `nadobanana_v1` 선택
-4. Build settings:
+2. "Add new site" → "Import an existing project" 클릭
+3. "Deploy with GitHub" 선택
+4. GitHub 저장소 `nadobanana_v1` 선택
+5. Build settings:
    - Build command: (비워두기)
    - Publish directory: `.` (루트)
-5. Environment variables 설정:
-   - `GEMINI_API_KEY`: 구글 AI Studio에서 발급받은 API 키
+6. **환경변수 설정 불필요!** (사용자가 직접 입력)
 
-### 3단계: 배포 완료
+### 3단계: 배포 완료 ✅
 - 배포 URL에서 바로 실행 가능
-- 단일 HTML 파일 + 서버리스 함수로 완전한 앱 동작
+- 사용자가 각자 API 키를 입력하여 사용
+- 다중 사용자 배포 준비 완료!
 
 ## 📁 프로젝트 구조
 
@@ -55,13 +56,20 @@ git push
 - 모바일/데스크톱 최적화
 - Tailwind CSS 사용
 
-## 🔑 환경변수
+## 🔑 API 키 설정
 
-Netlify Dashboard에서 설정 필요:
+**사용자별 개별 설정 시스템**
 
-```
-GEMINI_API_KEY=your-gemini-api-key-here
-```
+- ✅ 환경변수 설정 불필요
+- ✅ 각 사용자가 개별 API 키 입력
+- ✅ 브라우저 LocalStorage에 안전 저장
+- ✅ 언제든지 재설정 가능 (🔑 버튼)
+
+### API 키 발급 방법:
+1. [Google AI Studio](https://makersuite.google.com/app/apikey) 접속
+2. "Create API key" 클릭
+3. 생성된 키를 웹앱에서 입력
+4. 완료!
 
 ## 🛠️ 로컬 개발
 
@@ -101,8 +109,9 @@ npm run dev
 ## 🐛 트러블슈팅
 
 ### API 키 오류
-- Netlify Dashboard에서 `GEMINI_API_KEY` 환경변수 확인
+- 웹앱 우측 상단 🔑 버튼 클릭하여 재설정
 - Google AI Studio에서 API 키 재생성
+- API 키 유효성 확인 (최소 10자 이상)
 
 ### CORS 오류
 - `netlify.toml`의 헤더 설정 확인
@@ -114,4 +123,23 @@ npm run dev
 
 ---
 
-**FLAG-20250831-1600-003** - Single HTML + Netlify Functions 배포 준비 완료
+## 🎯 배포 특징
+
+### ✅ 다중 사용자 친화적
+- 각 사용자가 개별 API 키 사용
+- 환경변수 설정 불필요
+- 즉시 배포 가능
+
+### ✅ 보안 최적화
+- API 키는 클라이언트에서만 처리
+- 서버에 저장되지 않음
+- LocalStorage 안전 저장
+
+### ✅ 사용 편의성
+- 원클릭 배포
+- 직관적 UI/UX
+- 모바일 완벽 지원
+
+---
+
+**FLAG-20250831-1630-004** - 다중 사용자 API 키 시스템 + Single HTML 배포 준비 완료

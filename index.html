@@ -20,9 +20,12 @@
             <h1 class="text-2xl font-bold cursor-pointer" onclick="showHome()">
                 🍌 나도바나나 이미지 생성기
             </h1>
-            <nav class="flex gap-4">
+            <nav class="flex gap-4 items-center">
                 <button onclick="showHome()" class="hover:text-yellow-300 transition-colors">홈</button>
                 <button onclick="showHistory()" class="hover:text-yellow-300 transition-colors">히스토리</button>
+                <button onclick="resetApiKey()" class="text-sm bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded transition-colors" title="API 키 재설정">
+                    🔑
+                </button>
             </nav>
         </div>
     </header>
@@ -42,6 +45,57 @@
 
     <!-- Main Content -->
     <main id="main-content">
+        <!-- API Key Setup Screen -->
+        <div id="setup-screen" class="container mx-auto p-8 max-w-2xl">
+            <div class="text-center mb-8 fade-in">
+                <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    🔑 API 키 설정
+                </h2>
+                <p class="text-gray-300">Google Gemini API 키를 입력해주세요</p>
+            </div>
+
+            <div class="glass rounded-2xl p-6 mb-6">
+                <label class="block text-sm font-medium mb-3">Gemini API Key</label>
+                <input 
+                    id="api-key-input"
+                    type="password"
+                    placeholder="Google AI Studio에서 발급받은 API 키를 입력하세요"
+                    class="w-full p-4 rounded-lg bg-white/10 border border-white/20 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                >
+                <div class="mt-3 text-sm text-gray-400">
+                    <p>🔒 API 키는 브라우저에만 저장되며 안전합니다</p>
+                    <p>📋 <a href="https://makersuite.google.com/app/apikey" target="_blank" class="text-blue-400 hover:text-blue-300">Google AI Studio</a>에서 무료로 발급받을 수 있습니다</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button 
+                    onclick="saveApiKey()" 
+                    disabled
+                    id="save-api-key-btn"
+                    class="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-6 rounded-lg hover:from-yellow-400 hover:to-orange-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    ✅ 저장하고 시작하기
+                </button>
+                <button 
+                    onclick="testWithoutKey()" 
+                    class="bg-gray-600 hover:bg-gray-700 px-6 py-4 rounded-lg transition-colors"
+                >
+                    🧪 체험하기
+                </button>
+            </div>
+
+            <div class="mt-6 glass rounded-xl p-4">
+                <h3 class="font-bold mb-2">📖 API 키 발급 방법</h3>
+                <ol class="text-sm text-gray-300 space-y-2">
+                    <li>1. <a href="https://makersuite.google.com/app/apikey" target="_blank" class="text-blue-400">Google AI Studio</a> 접속</li>
+                    <li>2. "Create API key" 버튼 클릭</li>
+                    <li>3. 생성된 키를 복사해서 위에 붙여넣기</li>
+                    <li>4. 저장하고 시작하기!</li>
+                </ol>
+            </div>
+        </div>
+
         <!-- Home Screen -->
         <div id="home-screen" class="container mx-auto p-8 max-w-2xl">
             <div class="text-center mb-8 fade-in">
@@ -158,18 +212,35 @@
 
     <script>
         // State Management
-        let currentView = 'HOME';
+        let currentView = 'SETUP';
         let currentImage = null;
         let isLoading = false;
         let uploadedImageData = null;
+        let userApiKey = null;
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if API key is already stored
+            userApiKey = localStorage.getItem('gemini-api-key');
+            if (userApiKey) {
+                showHome();
+            } else {
+                showSetup();
+            }
+            
             updateGenerateButton();
             loadHistory();
             
             // Add input listeners
-            document.getElementById('prompt-input').addEventListener('input', updateGenerateButton);
+            const promptInput = document.getElementById('prompt-input');
+            if (promptInput) {
+                promptInput.addEventListener('input', updateGenerateButton);
+            }
+            
+            const apiKeyInput = document.getElementById('api-key-input');
+            if (apiKeyInput) {
+                apiKeyInput.addEventListener('input', updateApiKeyButton);
+            }
         });
 
         // View Management
@@ -182,6 +253,11 @@
             // Show selected screen
             document.getElementById(viewName + '-screen').classList.remove('hidden');
             currentView = viewName;
+        }
+
+        function showSetup() {
+            showView('setup');
+            clearError();
         }
 
         function showHome() {
@@ -232,9 +308,52 @@
             reader.readAsDataURL(file);
         }
 
+        // API Key Management
+        function updateApiKeyButton() {
+            const apiKey = document.getElementById('api-key-input').value.trim();
+            const btn = document.getElementById('save-api-key-btn');
+            
+            btn.disabled = !apiKey || apiKey.length < 10;
+        }
+
+        function saveApiKey() {
+            const apiKey = document.getElementById('api-key-input').value.trim();
+            
+            if (!apiKey) {
+                showError('API 키를 입력해주세요.');
+                return;
+            }
+            
+            // Simple validation
+            if (apiKey.length < 10) {
+                showError('올바른 API 키를 입력해주세요.');
+                return;
+            }
+            
+            userApiKey = apiKey;
+            localStorage.setItem('gemini-api-key', apiKey);
+            showHome();
+        }
+
+        function testWithoutKey() {
+            showError('체험 모드에서는 실제 이미지 생성이 불가능합니다. API 키를 입력해주세요.');
+            setTimeout(() => {
+                showHome();
+            }, 2000);
+        }
+
+        function resetApiKey() {
+            localStorage.removeItem('gemini-api-key');
+            userApiKey = null;
+            showSetup();
+        }
+
         // Button State Management
         function updateGenerateButton() {
-            const prompt = document.getElementById('prompt-input').value.trim();
+            const promptInput = document.getElementById('prompt-input');
+            if (!promptInput) return;
+            
+            const prompt = promptInput.value.trim();
             const hasUpload = !!uploadedImageData;
             const btn = document.getElementById('generate-btn');
             
@@ -259,6 +378,11 @@
                 return;
             }
 
+            if (!userApiKey) {
+                showError('API 키가 설정되지 않았습니다. 오른쪽 상단 🔑 버튼을 클릭해서 설정해주세요.');
+                return;
+            }
+
             isLoading = true;
             showGeneration();
             clearError();
@@ -269,6 +393,7 @@
                 
                 const requestBody = {
                     prompt: prompt,
+                    apiKey: userApiKey,
                     ...(isEdit && { imageData: uploadedImageData })
                 };
 
@@ -359,7 +484,8 @@
                     },
                     body: JSON.stringify({
                         imageData: currentImage.src,
-                        prompt: editPrompt
+                        prompt: editPrompt,
+                        apiKey: userApiKey
                     })
                 });
 

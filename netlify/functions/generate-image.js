@@ -29,23 +29,22 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        // Get API key from environment variables
-        const apiKey = process.env.GEMINI_API_KEY;
-        if (!apiKey) {
-            return {
-                statusCode: 500,
-                headers,
-                body: JSON.stringify({ error: 'API key not configured' })
-            };
-        }
-
         // Parse request body
-        const { prompt } = JSON.parse(event.body);
+        const { prompt, apiKey } = JSON.parse(event.body);
+        
         if (!prompt) {
             return {
                 statusCode: 400,
                 headers,
                 body: JSON.stringify({ error: 'Prompt is required' })
+            };
+        }
+        
+        if (!apiKey) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ error: 'API key is required' })
             };
         }
 
