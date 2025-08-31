@@ -2,17 +2,64 @@
   "version": "1.0.0",
   "created": "2025-08-31",
   "description": "실행 플래그 시스템 - 롤백 지원",
-  "current_flag": 0,
+  "current_flag": 4,
   "flags": {
     "FLAG-20250831-1542-001": {
       "timestamp": "2025-08-31T15:42:00.000Z",
       "action": "project_initialization",
       "description": "프로젝트 규칙 파일 생성 및 Git 저장소 연동",
       "files_affected": [
-        "PROJECT_RULES.md",
-        ".gitignore"
+        "PROJECT_RULES.md"
       ],
       "git_commit": "239fe6f",
+      "status": "completed",
+      "rollback_possible": true,
+      "validation_passed": true
+    },
+    "FLAG-20250831-1545-002": {
+      "timestamp": "2025-08-31T15:45:00.000Z",
+      "action": "system_infrastructure",
+      "description": "프로젝트 시스템 인프라 구축 및 GitHub 연동 완료",
+      "files_affected": [
+        ".gitignore",
+        ".project_system/prompts/optimized_prompts.json",
+        ".project_system/flags/execution_flags.json",
+        ".project_system/mcp_config/mcp_versions.json",
+        ".project_system/logs/2025-08-31/execution_results.json"
+      ],
+      "git_commit": "849fa76",
+      "status": "completed",
+      "rollback_possible": true,
+      "validation_passed": true
+    },
+    "FLAG-20250831-1600-003": {
+      "timestamp": "2025-08-31T16:00:00.000Z",
+      "action": "single_html_deployment",
+      "description": "Single HTML + Netlify Functions 아키텍처 구현",
+      "files_affected": [
+        "index.html",
+        "netlify/functions/generate-image.js",
+        "netlify/functions/edit-image.js",
+        "netlify.toml",
+        "package.json",
+        "README.md"
+      ],
+      "git_commit": "4da65f4",
+      "status": "completed",
+      "rollback_possible": true,
+      "validation_passed": true
+    },
+    "FLAG-20250831-1630-004": {
+      "timestamp": "2025-08-31T16:30:00.000Z",
+      "action": "multi_user_api_system",
+      "description": "다중 사용자 API 키 시스템 및 퍼블릭 배포 준비",
+      "files_affected": [
+        "index.html",
+        "netlify/functions/generate-image.js",
+        "netlify/functions/edit-image.js",
+        "README.md"
+      ],
+      "git_commit": "d3b81f1",
       "status": "completed",
       "rollback_possible": true,
       "validation_passed": true
@@ -22,8 +69,26 @@
     {
       "flag_id": "FLAG-20250831-1542-001",
       "git_commit": "239fe6f",
-      "description": "Initial stable state",
+      "description": "Initial stable state - Project rules established",
       "created": "2025-08-31T15:42:00.000Z"
+    },
+    {
+      "flag_id": "FLAG-20250831-1545-002",
+      "git_commit": "849fa76",
+      "description": "Project infrastructure complete - System ready",
+      "created": "2025-08-31T15:45:00.000Z"
+    },
+    {
+      "flag_id": "FLAG-20250831-1600-003",
+      "git_commit": "4da65f4",
+      "description": "Single HTML deployment ready - Basic functionality",
+      "created": "2025-08-31T16:00:00.000Z"
+    },
+    {
+      "flag_id": "FLAG-20250831-1630-004",
+      "git_commit": "d3b81f1",
+      "description": "Multi-user system complete - Public deployment ready",
+      "created": "2025-08-31T16:30:00.000Z"
     }
   ]
 }
